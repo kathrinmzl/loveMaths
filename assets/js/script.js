@@ -10,10 +10,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 alert("You clicked Submit!");
             } else {
                 let gameType = this.getAttribute("data-type");
-                alert(`You clicked ${gameType}`);
+                // run game depending on game type
+                runGame(gameType);
             }
         });
     }
+
+    // Default game, run when page is loaded and no button has been clicked yet
+    runGame("addition");
 })
 
 // Create docstring to describe each function. Can be accessed when using the function elsewhere in te code
@@ -21,13 +25,22 @@ document.addEventListener("DOMContentLoaded", function() {
  * The main game loop, called when the script is first loaded
  * and when the users answer has been processed
  */
-function runGame() {
+function runGame(gameType) {
     // Create two random numbers between 1 and 25
     // Math.floor rounds any floating point number down to a whole number, 
     // therefore +1 needs to be added to Math.random()*25 to increase the range from 0-24 to 1-25
     let num1 = Math.floor(Math.random()*25)+1;
     let num2 = Math.floor(Math.random()*25)+1;
 
+    // Call the appropriate function to display the question, depending on the gameType
+    if(gameType === "addition"){
+        displayAdditionQuestion(num1, num2);
+    } else {
+        alert(`Unknown game type: ${gameType}`);
+        // throw statement will stop the game  from running and print custom error message 
+        // to the console for debugging.
+        throw `Unknown game type: ${gameType}. Aborting!`;
+    }
 
 }
 
@@ -35,7 +48,15 @@ function checkAnswer() {}
 function calculateCorrectAnswer() {}
 function incrementScore(){}
 function incrementWrongAnswer(){}
-function displayAdditionQuestion(){}
-function displaySubtractQuestion(){}
-function displayMultiplyQuestion(){}
-function displayDivisionQuestion(){}
+
+function displayAdditionQuestion(operand1, operand2){
+    // Set displayed operands to randomly generated numbers
+    document.getElementById("operand1").textContent = operand1;
+    document.getElementById("operand2").textContent = operand2;
+    // Set displayed operator to 
+    document.getElementById("operator").textContent = "+";
+}
+
+function displaySubtractQuestion(operand1, operand2){}
+function displayMultiplyQuestion(operand1, operand2){}
+function displayDivisionQuestion(operand1, operand2){}
