@@ -39,13 +39,14 @@ function runGame(gameType) {
         displayAdditionQuestion(num1, num2);
     } else if(gameType === "multiply"){
         displayMultiplyQuestion(num1, num2);
+    } else if(gameType === "subtract"){
+        displaySubtractQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         // throw statement will stop the game  from running and print custom error message 
         // to the console for debugging.
         throw `Unknown game type: ${gameType}. Aborting!`;
     }
-
 }
 
 /**
@@ -85,6 +86,8 @@ function calculateCorrectAnswer() {
         return[operand1 + operand2, "addition"]
     } else if(operator ===  "x"){
         return[operand1 * operand2, "multiply"]
+    } else if(operator ===  "-"){
+        return[operand1 - operand2, "subtract"]
     } else {
         alert(`Unimplemented operator: ${operator}`);
         throw `Unimplemented operator: ${operator}. Aborting!`;
@@ -115,7 +118,7 @@ function displayAdditionQuestion(operand1, operand2){
     // Set displayed operands to randomly generated numbers
     document.getElementById("operand1").textContent = operand1;
     document.getElementById("operand2").textContent = operand2;
-    // Set displayed operator to 
+    // Set displayed operator 
     document.getElementById("operator").textContent = "+";
 }
 
@@ -123,10 +126,17 @@ function displayMultiplyQuestion(operand1, operand2){
     // Set displayed operands to randomly generated numbers
     document.getElementById("operand1").textContent = operand1;
     document.getElementById("operand2").textContent = operand2;
-    // Set displayed operator to 
+    // Set displayed operator 
     document.getElementById("operator").textContent = "x";
 }
 
-function displaySubtractQuestion(operand1, operand2){}
+function displaySubtractQuestion(operand1, operand2){
+    // Set displayed operands to randomly generated numbers
+    // Make sure that the bigger operand is set as operand1
+    document.getElementById("operand1").textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById("operand2").textContent = operand1 > operand2 ? operand2 : operand1;
+    // Set displayed operator 
+    document.getElementById("operator").textContent = "-";
+}
 
 function displayDivisionQuestion(operand1, operand2){}
