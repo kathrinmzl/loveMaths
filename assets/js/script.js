@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", function() {
         button.addEventListener("click", function() {
             // Distinguish what to do depending on which button is clicked
             if(this.getAttribute("data-type") === "submit"){
-                // Display alert message
-                alert("You clicked Submit!");
+                // Check Answer if Submit button has been clicked
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute("data-type");
-                // run game depending on game type
+                // Run game depending on game type
                 runGame(gameType);
             }
         });
@@ -46,7 +46,25 @@ function runGame(gameType) {
 
 }
 
-function checkAnswer() {}
+/**
+ * Checks the answer against the first element in the returned calculateCorrectAnswer array.
+ */
+function checkAnswer() {
+    // Get user answer from input field
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    // Get calculated answer (returns array)
+    let calculatedAnswer = calculateCorrectAnswer();
+    // Compare both answers
+    let isCorrect = userAnswer === calculatedAnswer[0];
+    // Display alert depending on wether the result is correct or not
+    if(isCorrect){
+        alert("YEEEAH! You got it right!");
+    } else {
+        alert(`Awww... that's wrong. You answered ${userAnswer}, but the correct answer is ${calculatedAnswer[0]}!`)
+    }
+    // Run a new game of the same type
+    runGame(calculatedAnswer[1]);
+}
 
 /**
  * Gets the operands (the numbers) and the operator (+, -, etc.) from 
