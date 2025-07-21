@@ -18,6 +18,14 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Also check for the correct Answer if the Enter key has been pressed
+    // Add event listener to answer-box
+    document.getElementById("answer-box").addEventListener("keydown", function(event){
+        if (event.key === "Enter"){
+            checkAnswer();
+        }
+    })
+
     // Default game, run when page is loaded and no button has been clicked yet
     runGame("addition");
 })
@@ -28,6 +36,11 @@ document.addEventListener("DOMContentLoaded", function() {
  * and when the users answer has been processed
  */
 function runGame(gameType) {
+    // Set input field to an empty string at the beginning of a game
+    document.getElementById("answer-box").value = "";
+    // Set input field to be in focus at the beginning of a game (cursor will be inside the input field)
+    document.getElementById("answer-box").focus();
+
     // Create two random numbers between 1 and 25
     // Math.floor rounds any floating point number down to a whole number, 
     // therefore +1 needs to be added to Math.random()*25 to increase the range from 0-24 to 1-25
