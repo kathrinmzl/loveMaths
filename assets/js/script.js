@@ -1,3 +1,5 @@
+// Avoid creating global variables to avoid clashes with other scripts!
+
 // Wait for the DOM to finish loading before running the game
 document.addEventListener("DOMContentLoaded", function() {
     // Get the button elements and add event listeners to them
@@ -20,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
     runGame("addition");
 })
 
-// Create docstring to describe each function. Can be accessed when using the function elsewhere in te code
+// Create docstring to describe each function. Can be accessed when using the function elsewhere in the code
 /**
  * The main game loop, called when the script is first loaded
  * and when the users answer has been processed
@@ -45,7 +47,26 @@ function runGame(gameType) {
 }
 
 function checkAnswer() {}
-function calculateCorrectAnswer() {}
+
+/**
+ * Gets the operands (the numbers) and the operator (+, -, etc.) from 
+ * the DOM and returns the correct answer.
+ */
+function calculateCorrectAnswer() {
+    // Get values
+    let operand1 = parseInt(document.getElementById("operand1").innerText);
+    let operand2 = parseInt(document.getElementById("operand2").innerText);
+    let operator = document.getElementById("operator").innerText;
+
+    // Calculate result
+    if(operator ===  "+"){
+        return[operand1 + operand2, "addition"]
+    } else {
+        alert(`Unimplemented operator: ${operator}`);
+        throw `Unimplemented operator: ${operator}. Aborting!`;
+    }
+}
+
 function incrementScore(){}
 function incrementWrongAnswer(){}
 
